@@ -30,7 +30,9 @@ function App() {
             setSelectedTrackInfo(null);
             return;
         }
+
         setSelectedTrack(track);
+        setSelectedTrackInfo(null);
 
         new Promise(resolve => setTimeout(() => {
             resolve(selectedTrackInfoMockData);
@@ -75,11 +77,15 @@ function App() {
                 </ul>
                 <div style={{position: 'sticky', top: '10px', maxHeight: '300px'}}>
                     <h2>Details</h2>
-                    {selectedTrack === null ? 'Track is not selected' : (
+                    {selectedTrack === null ? (
+                        'Track is not selected'
+                    ) : selectedTrackInfo === null ? (
+                        'Loading...'
+                    ) : (
                         <div>
-                            <h3>{selectedTrackInfo?.attributes.title}</h3>
+                            <h3>{selectedTrackInfo.attributes.title}</h3>
                             <h4>Lyrics</h4>
-                            <p>{selectedTrackInfo?.attributes.lyrics ? selectedTrackInfo?.attributes.lyrics : 'no lyrics'}</p>
+                            <p>{selectedTrackInfo.attributes.lyrics ? selectedTrackInfo.attributes.lyrics : 'no lyrics'}</p>
                         </div>
                     )}
                 </div>
