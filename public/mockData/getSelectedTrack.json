@@ -1,0 +1,65 @@
+{
+  "id": "8c1c8624-b409-43cd-9ac3-10b15576feb9",
+  "type": "tracks",
+  "attributes": {
+    "title": "banana6boom - Frontend Жив_part-2",
+    "lyrics": "",
+    "user": {
+      "id": "26",
+      "name": "Svyat-_b25"
+    },
+    "releaseDate": "2026-02-26T15:08:51.972Z",
+    "addedAt": "2026-02-26T15:10:09.493Z",
+    "updatedAt": "2026-04-12T22:48:18.297Z",
+    "duration": 0,
+    "attachments": [
+      {
+        "id": "33289d06-4879-480b-8b8e-7d19f648d4a5",
+        "addedAt": "2026-02-26T15:09:53.933Z",
+        "updatedAt": "2026-02-26T15:09:53.933Z",
+        "version": 1,
+        "url": "https://production-it-incubator.s3.eu-central-1.amazonaws.com/apihub-spotifun/Video/80ea0459-8537-4d70-914c-ea5ac112cc04_compress (1).mp3",
+        "contentType": "audio/mpeg",
+        "originalName": "compress (1).mp3",
+        "fileSize": 886125
+      }
+    ],
+    "images": {
+      "main": [
+        {
+          "type": "original",
+          "width": 248,
+          "height": 248,
+          "fileSize": 16472,
+          "url": "https://production-it-incubator.s3.eu-central-1.amazonaws.com/apihub-spotifun/Image/d28837c8-87a4-446c-8672-5595b53b16a2_Screenshot_438.png"
+        },
+        {
+          "type": "medium",
+          "width": 156,
+          "height": 156,
+          "fileSize": 5280,
+          "url": "https://production-it-incubator.s3.eu-central-1.amazonaws.com/apihub-spotifun/Image/43683a6d-0ba8-45eb-8974-de94323eeed7_image.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": 48,
+          "height": 48,
+          "fileSize": 976,
+          "url": "https://production-it-incubator.s3.eu-central-1.amazonaws.com/apihub-spotifun/Image/19252d4f-e73f-4114-9b58-d85cfdd9e9fc_image.png"
+        }
+      ]
+    },
+    "tags": [],
+    "artists": [
+      {
+        "id": "1b516ddd-5916-404a-bb01-b56cfb9922ac",
+        "name": "eminem"
+      }
+    ],
+    "likesCount": 0,
+    "dislikesCount": 0,
+    "currentUserReaction": 0,
+    "publishedAt": "2026-03-12T15:27:31.311Z",
+    "isPublished": true
+  }
+}
