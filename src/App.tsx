@@ -1,122 +1,59 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import {useState, useEffect} from 'react'
+import * as playlistTracksMockData from '../public/mockData/playlist-tracks.json';
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [selectedTrack, setSelectedTrack] = useState(null);
+    const [tracks, setTracks] = useState(null);
 
-  return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    useEffect(() => {
+        // fetch('https://musicfun.it-incubator.app/api/1.0/playlists/tracks', {
+        //     headers: {
+        //         'api-key': '37d39d16-0b1a-45be-bc39-dac551910cca',
+        //     }
+        // })
+        //     .then(res => res.json())
+        //     .then(json => setTracks(json));
 
-      <div className="ticks"></div>
+        new Promise(resolve => setTimeout(() => {
+            resolve(playlistTracksMockData);
+        }, 1000))
+            .then(res => setTracks(res?.data));
+    }, [])
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+    if (tracks === null) {
+        return <div>
+            <h1>G-Music</h1>
+            <p>Loading...</p>
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
+    }
+    if (!tracks.length) {
+        return <div>
+            <h1>G-Music</h1>
+            <p>Empty list of songs</p>
         </div>
-      </section>
+    }
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+    return (
+        <>
+            <h1>G-Music</h1>
+            <div style={{ display: 'flex' }}>
+                <ul>
+                    {tracks.map((track) => (
+                        <li key={track.id} style={{border: track.id === selectedTrack ? '1px solid orange' : 'none'}}>
+                            <div onClick={() => {
+                              return track.id === selectedTrack ? setSelectedTrack(null) : setSelectedTrack(track.id)
+                            }}>{track.attributes.title}</div>
+                            <audio src={track.attributes.attachments[0].url} controls></audio>
+                        </li>
+                    ))}
+                </ul>
+                <div>
+                    <h3>Details</h3>
+                    {selectedTrack === null ? 'Track is not selected' : ''}
+                </div>
+            </div>
+        </>
+    )
 }
 
-export default App
+export default App;
