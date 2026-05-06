@@ -56,6 +56,7 @@ function App() {
     return (
         <>
             <h1>G-Music</h1>
+            <button>Next</button>
             <div style={{ display: 'flex', gap: '30px' }}>
                 <TracksList
                     tracks={tracks}
