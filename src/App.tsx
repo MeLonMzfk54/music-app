@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import * as playlistTracksMockData from '../public/mockData/playlist-tracks.json';
-import * as selectedTrackInfoMockData from '../public/mockData/getSelectedTrack.json';
+import * as playlistTracksMockData from './mockData/playlist-tracks.json';
+import * as selectedTrackInfoMockData from './mockData/getSelectedTrack.json';
 
 const USE_MOCK = true;
 
