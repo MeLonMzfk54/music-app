@@ -6,7 +6,7 @@ import TrackDetails from './components/TrackDetails.tsx';
 
 const USE_MOCK = true;
 
-function fetchTracks() {
+async function fetchTracks() {
     if (USE_MOCK) {
         return new Promise(resolve => setTimeout(() => resolve(playlistTracksMockData?.data), 1000));
     } else {
@@ -16,13 +16,15 @@ function fetchTracks() {
     }
 }
 
-function fetchTrackInfo(trackId) {
+async function fetchTrackInfo(trackId) {
     if (USE_MOCK) {
         return new Promise(resolve => setTimeout(() => resolve(selectedTrackInfoMockData), 1000));
     } else {
         return fetch(`https://musicfun.it-incubator.app/api/1.0/playlists/tracks/${trackId}`, {
             headers: { 'api-key': '37d39d16-0b1a-45be-bc39-dac551910cca' }
-        }).then(res => res.json());
+        })
+            .then(res => res.json())
+            .then(json => json.data);
     }
 }
 

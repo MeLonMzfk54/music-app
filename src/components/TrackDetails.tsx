@@ -6,9 +6,9 @@ function TrackDetails({ selectedTrack, selectedTrackInfo }) {
         <>
             <h2>Track Details</h2>
             <div>
-                <h3>{selectedTrackInfo.attributes.title}</h3>
+                <h3>{selectedTrackInfo?.attributes?.title}</h3>
                 <h4>Lyrics</h4>
-                <p>{selectedTrackInfo.attributes.lyrics || 'no lyrics'}</p>
+                <p>{selectedTrackInfo?.attributes?.lyrics || 'no lyrics'}</p>
             </div>
         </>
     );
