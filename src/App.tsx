@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import * as playlistTracksMockData from './mockData/playlist-tracks.json';
 import * as selectedTrackInfoMockData from './mockData/getSelectedTrack.json';
+import TracksList from './components/TracksList.tsx';
+import TrackDetails from './components/TrackDetails.tsx';
 
 const USE_MOCK = true;
 
@@ -41,42 +43,28 @@ function App() {
         }
 
         setSelectedTrack(track);
-        setSelectedTrackInfo(null); // чтобы показывать Loading…
+        setSelectedTrackInfo(null); // показываем Loading…
 
         fetchTrackInfo(track.id).then(setSelectedTrackInfo);
     }
 
-    if (tracks === null) return <div><h1>G-Music</h1><p>Loading...</p></div>;
+    if (!tracks) return <div><h1>G-Music</h1><p>Loading...</p></div>;
     if (!tracks.length) return <div><h1>G-Music</h1><p>Empty list of songs</p></div>;
 
     return (
         <>
             <h1>G-Music</h1>
             <div style={{ display: 'flex', gap: '30px' }}>
-                <ul style={{ maxWidth: '300px' }}>
-                    {tracks.map(track => (
-                        <li key={track.id} style={{ border: track.id === selectedTrack?.id ? '1px solid orange' : 'none' }}>
-                            <div
-                                style={{ overflowX: 'scroll', cursor: 'pointer' }}
-                                onClick={() => chooseTrack(track)}
-                            >
-                                {track.attributes.title}
-                            </div>
-                            <audio src={track.attributes.attachments[0].url} controls></audio>
-                        </li>
-                    ))}
-                </ul>
+                <TracksList
+                    tracks={tracks}
+                    selectedTrackId={selectedTrack?.id || null}
+                    onTrackClick={chooseTrack}
+                />
                 <div style={{ position: 'sticky', top: '10px', maxHeight: '300px' }}>
-                    <h2>Details</h2>
-                    {selectedTrack === null ? 'Track is not selected'
-                        : selectedTrackInfo === null ? 'Loading...'
-                            : (
-                                <div>
-                                    <h3>{selectedTrackInfo.attributes.title}</h3>
-                                    <h4>Lyrics</h4>
-                                    <p>{selectedTrackInfo.attributes.lyrics || 'no lyrics'}</p>
-                                </div>
-                            )}
+                    <TrackDetails
+                        selectedTrack={selectedTrack}
+                        selectedTrackInfo={selectedTrackInfo}
+                    />
                 </div>
             </div>
         </>
