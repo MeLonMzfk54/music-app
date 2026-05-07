@@ -1,5 +1,5 @@
 import {useCallback} from "react";
-import type {TrackItemOutput} from "../App.tsx";
+import type {TrackItemOutput} from "../api/api.ts";
 import TrackItem from "./TrackItem.tsx";
 
 type Props = {

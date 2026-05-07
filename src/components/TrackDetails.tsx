@@ -1,4 +1,4 @@
-import type {TrackItemOutput, TrackDetailsItemOutput} from "../App.tsx";
+import type {TrackDetailsItemOutput, TrackItemOutput} from "../api/api.ts";
 
 type Props = {
     selectedTrack: TrackItemOutput | null,

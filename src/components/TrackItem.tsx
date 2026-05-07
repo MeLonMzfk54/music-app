@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import type {TrackItemOutput} from "../App.tsx";
+import type {TrackItemOutput} from "../api/api.ts";
 
 type Props = {
     track: TrackItemOutput,
