@@ -1,9 +1,16 @@
 import {useCallback} from "react";
+import type {TrackItemOutput} from "../App.tsx";
 import TrackItem from "./TrackItem.tsx";
 
-function TracksList({ tracks, selectedTrackId, onTrackClick }) {
+type Props = {
+    tracks: TrackItemOutput[],
+    selectedTrackId: string | null,
+    onTrackClick: (track: TrackItemOutput) => void,
+}
+
+function TracksList({ tracks, selectedTrackId, onTrackClick }: Props) {
     const handleTrackClick = useCallback(
-        (track) => {
+        (track: TrackItemOutput) => {
             onTrackClick(track);
         },
         [onTrackClick]
@@ -11,12 +18,12 @@ function TracksList({ tracks, selectedTrackId, onTrackClick }) {
 
     return (
         <ul style={{ maxWidth: '300px' }}>
-            {tracks.map(track => (
+            {tracks.map((track: TrackItemOutput) => (
                 <TrackItem
                     key={track.id}
                     track={track}
                     isSelected={selectedTrackId === track.id}
-                    onClick={handleTrackClick}
+                    onClickTrack={handleTrackClick}
                 />
             ))}
         </ul>

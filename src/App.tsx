@@ -16,7 +16,7 @@ async function fetchTracks() {
     }
 }
 
-async function fetchTrackInfo(trackId) {
+async function fetchTrackInfo(trackId: string) {
     if (USE_MOCK) {
         return new Promise(resolve => setTimeout(() => resolve(selectedTrackInfoMockData), 1000));
     } else {
@@ -28,16 +28,38 @@ async function fetchTrackInfo(trackId) {
     }
 }
 
+type AttachmentDTO = {
+    url: string,
+}
+
+type TrackItemOutputAttributes = {
+    title: string,
+    attachments: AttachmentDTO[],
+}
+
+export type TrackItemOutput = {
+    id: string,
+    attributes: TrackItemOutputAttributes,
+}
+
+export type TrackDetailsItemOutput = {
+    id: string,
+    attributes: {
+        title: string,
+        lyrics: string | null,
+    }
+}
+
 function App() {
-    const [selectedTrack, setSelectedTrack] = useState(null);
-    const [selectedTrackInfo, setSelectedTrackInfo] = useState(null);
-    const [tracks, setTracks] = useState(null);
+    const [selectedTrack, setSelectedTrack] = useState<TrackItemOutput | null>(null);
+    const [selectedTrackInfo, setSelectedTrackInfo] = useState<TrackDetailsItemOutput | null>(null);
+    const [tracks, setTracks] = useState<TrackItemOutput[] | null>(null);
 
     useEffect(() => {
         fetchTracks().then(setTracks);
     }, []);
 
-    function chooseTrack(track) {
+    function chooseTrack(track: TrackItemOutput) {
         if (selectedTrack?.id === track.id) {
             setSelectedTrack(null);
             setSelectedTrackInfo(null);
@@ -60,7 +82,7 @@ function App() {
             <div style={{ display: 'flex', gap: '30px' }}>
                 <TracksList
                     tracks={tracks}
-                    selectedTrackId={selectedTrack?.id || null}
+                    selectedTrackId={selectedTrack?.id ?? null}
                     onTrackClick={chooseTrack}
                 />
                 <div style={{ position: 'sticky', top: '10px', maxHeight: '300px' }}>

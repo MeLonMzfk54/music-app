@@ -1,4 +1,11 @@
-function TrackDetails({ selectedTrack, selectedTrackInfo }) {
+import type {TrackItemOutput, TrackDetailsItemOutput} from "../App.tsx";
+
+type Props = {
+    selectedTrack: TrackItemOutput | null,
+    selectedTrackInfo: TrackDetailsItemOutput | null,
+}
+
+function TrackDetails({ selectedTrack, selectedTrackInfo }: Props) {
     if (!selectedTrack) return <div>Track is not selected</div>;
     if (!selectedTrackInfo) return <div>Loading...</div>;
 
