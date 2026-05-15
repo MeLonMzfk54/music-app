@@ -1,0 +1,37 @@
+.tracks-list {
+    min-width: 0;
+}
+
+.tracks-list__heading {
+    margin: 0 0 0.25rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #fafafa;
+}
+
+.tracks-list__count {
+    margin: 0 0 1rem;
+    font-size: 0.85rem;
+    color: #71717a;
+}
+
+.tracks-list__items {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    max-height: calc(100vh - 220px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #3f3f46 transparent;
+}
+
+.tracks-list__items::-webkit-scrollbar {
+    width: 6px;
+}
+
+.tracks-list__items::-webkit-scrollbar-thumb {
+    background: #3f3f46;
+    border-radius: 3px;
+}

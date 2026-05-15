@@ -1,56 +1,68 @@
-
 import {useTracks} from "./bll/useTracks.tsx";
-import {useTrackSelection} from "./bll/useTrackSelection.tsx";
-
+import {useMusicPlayer} from "./bll/useMusicPlayer.tsx";
 import TracksList from './components/TracksList.tsx';
 import TrackDetails from './components/TrackDetails.tsx';
-
+import Player from './components/Player.tsx';
+import './App.css';
 
 function App() {
+    const { tracks } = useTracks();
+    const player = useMusicPlayer(tracks);
 
-    const {tracks} = useTracks();
-
-    const {selectedTrack, selectedTrackInfo, chooseTrack} = useTrackSelection();
-
-    function nextClick() {
-        if (!tracks?.length) return;
-
-        if (!selectedTrack) {
-            chooseTrack(tracks[0]);
-            return;
-        }
-
-        const currentIndex = tracks.findIndex(
-            track => track.id === selectedTrack.id
+    if (!tracks) {
+        return (
+            <div className="app app--loading">
+                <div className="loader" />
+                <p>Загрузка плейлиста…</p>
+            </div>
         );
-
-        const nextIndex = (currentIndex + 1) % tracks.length;
-
-        chooseTrack(tracks[nextIndex]);
     }
 
-
-    if (!tracks) return <div><h1>G-Music</h1><p>Loading...</p></div>;
-    if (!tracks.length) return <div><h1>G-Music</h1><p>Empty list of songs</p></div>;
+    if (!tracks.length) {
+        return (
+            <div className="app app--empty">
+                <h1>G-Music</h1>
+                <p>Плейлист пуст</p>
+            </div>
+        );
+    }
 
     return (
-        <>
-            <h1>G-Music</h1>
-            <button onClick={nextClick}>Next</button>
-            <div style={{ display: 'flex', gap: '30px' }}>
+        <div className="app">
+            <header className="app__header">
+                <h1 className="app__logo">
+                    <span className="app__logo-accent">G</span>-Music
+                </h1>
+                <p className="app__tagline">Слушайте и управляйте плейлистом</p>
+            </header>
+
+            <main className="app__main">
                 <TracksList
                     tracks={tracks}
-                    selectedTrackId={selectedTrack?.id ?? null}
-                    onTrackClick={chooseTrack}
+                    currentTrackId={player.currentTrack?.id ?? null}
+                    isPlaying={player.isPlaying}
+                    onTrackClick={player.playTrack}
                 />
-                <div style={{ position: 'sticky', top: '10px', maxHeight: '300px' }}>
-                    <TrackDetails
-                        selectedTrack={selectedTrack}
-                        selectedTrackInfo={selectedTrackInfo}
-                    />
-                </div>
-            </div>
-        </>
+                <TrackDetails
+                    currentTrack={player.currentTrack}
+                    trackInfo={player.trackInfo}
+                />
+            </main>
+
+            <Player
+                audioRef={player.audioRef}
+                currentTrack={player.currentTrack}
+                isPlaying={player.isPlaying}
+                currentTime={player.currentTime}
+                duration={player.duration}
+                volume={player.volume}
+                onTogglePlay={player.togglePlay}
+                onPrevious={player.playPrevious}
+                onNext={player.playNext}
+                onSeek={player.seek}
+                onVolumeChange={player.changeVolume}
+            />
+        </div>
     );
 }
 

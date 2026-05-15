@@ -8,9 +8,22 @@ type AttachmentDTO = {
     url: string,
 }
 
+type TrackImageDTO = {
+    type: string,
+    url: string,
+    width?: number,
+    height?: number,
+}
+
 type TrackItemOutputAttributes = {
     title: string,
     attachments: AttachmentDTO[],
+    images?: {
+        main?: TrackImageDTO[],
+    },
+    user?: {
+        name: string,
+    },
 }
 
 export type TrackDetailsItemOutput = {

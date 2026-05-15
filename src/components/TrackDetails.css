@@ -1,0 +1,92 @@
+.track-details {
+    position: sticky;
+    top: 1.5rem;
+    padding: 1.5rem;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+}
+
+.track-details--empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 320px;
+}
+
+.track-details__placeholder {
+    text-align: center;
+    color: #71717a;
+}
+
+.track-details__icon {
+    display: block;
+    font-size: 3rem;
+    margin-bottom: 0.75rem;
+    opacity: 0.5;
+}
+
+.track-details__hero {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+}
+
+.track-details__cover {
+    width: 200px;
+    height: 200px;
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+}
+
+.track-details__cover--placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(145deg, #5b21b6, #be185d);
+    font-size: 4rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.track-details__title {
+    margin: 0 0 0.35rem;
+    font-size: 1.35rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #fafafa;
+}
+
+.track-details__artist {
+    margin: 0 0 1.5rem;
+    font-size: 0.95rem;
+    color: #a855f7;
+}
+
+.track-details__lyrics-heading {
+    margin: 0 0 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #71717a;
+}
+
+.track-details__loading,
+.track-details__no-lyrics {
+    margin: 0;
+    color: #a1a1aa;
+    font-size: 0.9rem;
+}
+
+.track-details__lyrics-text {
+    margin: 0;
+    font-family: inherit;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #d4d4d8;
+    white-space: pre-wrap;
+    word-break: break-word;
+}

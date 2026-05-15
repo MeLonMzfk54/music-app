@@ -1,0 +1,111 @@
+.track-item {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.track-item__button {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.track-item__button:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.track-item--active .track-item__button {
+    background: rgba(168, 85, 247, 0.15);
+}
+
+.track-item--active .track-item__title {
+    color: #c084fc;
+}
+
+.track-item__cover-wrap {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.track-item__cover {
+    display: block;
+    width: 48px;
+    height: 48px;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+.track-item__cover--placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #4c1d95, #831843);
+    font-size: 1.1rem;
+}
+
+.track-item__equalizer {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 3px;
+    padding-bottom: 6px;
+    background: rgba(0, 0, 0, 0.45);
+    border-radius: 6px;
+}
+
+.track-item__equalizer span {
+    width: 3px;
+    height: 8px;
+    background: #c084fc;
+    border-radius: 1px;
+    animation: equalizer 0.8s ease-in-out infinite alternate;
+}
+
+.track-item__equalizer span:nth-child(2) {
+    animation-delay: 0.15s;
+    height: 14px;
+}
+
+.track-item__equalizer span:nth-child(3) {
+    animation-delay: 0.3s;
+    height: 10px;
+}
+
+@keyframes equalizer {
+    from { transform: scaleY(0.4); }
+    to { transform: scaleY(1); }
+}
+
+.track-item__info {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.track-item__title {
+    font-size: 0.9rem;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.track-item__artist {
+    font-size: 0.8rem;
+    color: #a1a1aa;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

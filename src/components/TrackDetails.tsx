@@ -1,23 +1,53 @@
 import type {TrackDetailsItemOutput, TrackItemOutput} from "../api/api.ts";
+import {getTrackCover} from "../utils/trackCover.ts";
+import './TrackDetails.css';
 
 type Props = {
-    selectedTrack: TrackItemOutput | null,
-    selectedTrackInfo: TrackDetailsItemOutput | null,
+    currentTrack: TrackItemOutput | null,
+    trackInfo: TrackDetailsItemOutput | null,
 }
 
-function TrackDetails({ selectedTrack, selectedTrackInfo }: Props) {
-    if (!selectedTrack) return <div>Track is not selected</div>;
-    if (!selectedTrackInfo) return <div>Loading...</div>;
+function TrackDetails({ currentTrack, trackInfo }: Props) {
+    if (!currentTrack) {
+        return (
+            <aside className="track-details track-details--empty">
+                <div className="track-details__placeholder">
+                    <span className="track-details__icon">♪</span>
+                    <p>Выберите трек из списка</p>
+                </div>
+            </aside>
+        );
+    }
+
+    const cover = getTrackCover(currentTrack, trackInfo);
+    const title = trackInfo?.attributes?.title ?? currentTrack.attributes.title;
+    const lyrics = trackInfo?.attributes?.lyrics;
 
     return (
-        <>
-            <h2>Track Details</h2>
-            <div>
-                <h3>{selectedTrackInfo?.attributes?.title}</h3>
-                <h4>Lyrics</h4>
-                <p>{selectedTrackInfo?.attributes?.lyrics || 'no lyrics'}</p>
+        <aside className="track-details">
+            <div className="track-details__hero">
+                {cover ? (
+                    <img className="track-details__cover" src={cover} alt="" />
+                ) : (
+                    <div className="track-details__cover track-details__cover--placeholder">♪</div>
+                )}
             </div>
-        </>
+            <h2 className="track-details__title">{title}</h2>
+            {currentTrack.attributes.user?.name && (
+                <p className="track-details__artist">{currentTrack.attributes.user.name}</p>
+            )}
+
+            <div className="track-details__lyrics">
+                <h3 className="track-details__lyrics-heading">Текст песни</h3>
+                {!trackInfo ? (
+                    <p className="track-details__loading">Загрузка…</p>
+                ) : lyrics ? (
+                    <pre className="track-details__lyrics-text">{lyrics}</pre>
+                ) : (
+                    <p className="track-details__no-lyrics">Текст недоступен</p>
+                )}
+            </div>
+        </aside>
     );
 }
 
