@@ -12,6 +12,23 @@ function App() {
 
     const {selectedTrack, selectedTrackInfo, chooseTrack} = useTrackSelection();
 
+    function nextClick() {
+        if (!tracks?.length) return;
+
+        if (!selectedTrack) {
+            chooseTrack(tracks[0]);
+            return;
+        }
+
+        const currentIndex = tracks.findIndex(
+            track => track.id === selectedTrack.id
+        );
+
+        const nextIndex = (currentIndex + 1) % tracks.length;
+
+        chooseTrack(tracks[nextIndex]);
+    }
+
 
     if (!tracks) return <div><h1>G-Music</h1><p>Loading...</p></div>;
     if (!tracks.length) return <div><h1>G-Music</h1><p>Empty list of songs</p></div>;
@@ -19,7 +36,7 @@ function App() {
     return (
         <>
             <h1>G-Music</h1>
-            <button>Next</button>
+            <button onClick={nextClick}>Next</button>
             <div style={{ display: 'flex', gap: '30px' }}>
                 <TracksList
                     tracks={tracks}
