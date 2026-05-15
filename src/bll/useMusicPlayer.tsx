@@ -5,6 +5,12 @@ function getTrackUrl(track: TrackItemOutput): string | null {
     return track.attributes.attachments[0]?.url ?? null;
 }
 
+let currentVolume = 0.75;
+
+if (localStorage.getItem('currentVolume')) {
+    currentVolume = Number(localStorage.getItem("currentVolume"));
+}
+
 export function useMusicPlayer(tracks: TrackItemOutput[] | null) {
     const audioRef = useRef<HTMLAudioElement>(null);
     const activeTrackIdRef = useRef<string | null>(null);
@@ -13,7 +19,7 @@ export function useMusicPlayer(tracks: TrackItemOutput[] | null) {
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
-    const [volume, setVolume] = useState(0.75);
+    const [volume, setVolume] = useState<number>(currentVolume);
 
     const findIndex = useCallback(
         (trackId: string) => tracks?.findIndex(t => t.id === trackId) ?? -1,
@@ -123,6 +129,7 @@ export function useMusicPlayer(tracks: TrackItemOutput[] | null) {
     const changeVolume = useCallback((value: number) => {
         const clamped = Math.min(1, Math.max(0, value));
         setVolume(clamped);
+        localStorage.setItem('currentVolume', String(clamped));
         if (audioRef.current) {
             audioRef.current.volume = clamped;
         }
