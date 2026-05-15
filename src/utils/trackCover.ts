@@ -10,9 +10,9 @@ export function getTrackCover(
 
     if (fromList) return fromList;
 
-    const fromDetails = (trackInfo as { attributes?: { images?: { main?: { url: string }[] } } })?.attributes?.images?.main?.find(
-        img => (img as { type?: string }).type === 'medium'
-    )?.url;
+    const fromDetails = trackInfo?.attributes.images?.main?.find(
+        img => img.type === 'medium' || img.type === 'thumbnail'
+    )?.url ?? trackInfo?.attributes.images?.main?.[0]?.url;
 
     return fromDetails ?? null;
 }

@@ -7,6 +7,7 @@ function getTrackUrl(track: TrackItemOutput): string | null {
 
 export function useMusicPlayer(tracks: TrackItemOutput[] | null) {
     const audioRef = useRef<HTMLAudioElement>(null);
+    const activeTrackIdRef = useRef<string | null>(null);
     const [currentTrack, setCurrentTrack] = useState<TrackItemOutput | null>(null);
     const [trackInfo, setTrackInfo] = useState<TrackDetailsItemOutput | null>(null);
     const [isPlaying, setIsPlaying] = useState(false);
@@ -24,14 +25,26 @@ export function useMusicPlayer(tracks: TrackItemOutput[] | null) {
         const url = getTrackUrl(track);
         if (!audio || !url) return;
 
+        activeTrackIdRef.current = track.id;
         setCurrentTrack(track);
         setTrackInfo(null);
         setCurrentTime(0);
         setDuration(0);
 
-        getTrackInfo(track.id).then(setTrackInfo);
+        getTrackInfo(track.id)
+            .then(info => {
+                if (activeTrackIdRef.current === track.id) {
+                    setTrackInfo(info);
+                }
+            })
+            .catch(() => {
+                if (activeTrackIdRef.current === track.id) {
+                    setTrackInfo(null);
+                }
+            });
 
         audio.src = url;
+        audio.load();
         try {
             await audio.play();
             setIsPlaying(true);

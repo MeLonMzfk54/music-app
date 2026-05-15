@@ -33,8 +33,10 @@ function TrackDetails({ currentTrack, trackInfo }: Props) {
                 )}
             </div>
             <h2 className="track-details__title">{title}</h2>
-            {currentTrack.attributes.user?.name && (
-                <p className="track-details__artist">{currentTrack.attributes.user.name}</p>
+            {(trackInfo?.attributes.user?.name ?? currentTrack.attributes.user?.name) && (
+                <p className="track-details__artist">
+                    {trackInfo?.attributes.user?.name ?? currentTrack.attributes.user?.name}
+                </p>
             )}
 
             <div className="track-details__lyrics">
