@@ -1,33 +1,17 @@
-import { useState, useEffect } from 'react';
 
+import {useTracks} from "./bll/useTracks.tsx";
+import {useTrackSelection} from "./bll/useTrackSelection.tsx";
 
 import TracksList from './components/TracksList.tsx';
 import TrackDetails from './components/TrackDetails.tsx';
-import {getTrackInfo, getTracks} from "./api/api.ts";
-import type {TrackDetailsItemOutput, TrackItemOutput} from "./api/api.ts";
 
 
 function App() {
-    const [selectedTrack, setSelectedTrack] = useState<TrackItemOutput | null>(null);
-    const [selectedTrackInfo, setSelectedTrackInfo] = useState<TrackDetailsItemOutput | null>(null);
-    const [tracks, setTracks] = useState<TrackItemOutput[] | null>(null);
 
-    useEffect(() => {
-        getTracks().then(setTracks);
-    }, []);
+    const {tracks} = useTracks();
 
-    function chooseTrack(track: TrackItemOutput) {
-        if (selectedTrack?.id === track.id) {
-            setSelectedTrack(null);
-            setSelectedTrackInfo(null);
-            return;
-        }
+    const {selectedTrack, selectedTrackInfo, chooseTrack} = useTrackSelection();
 
-        setSelectedTrack(track);
-        setSelectedTrackInfo(null); // показываем Loading…
-
-        getTrackInfo(track.id).then(setSelectedTrackInfo);
-    }
 
     if (!tracks) return <div><h1>G-Music</h1><p>Loading...</p></div>;
     if (!tracks.length) return <div><h1>G-Music</h1><p>Empty list of songs</p></div>;
